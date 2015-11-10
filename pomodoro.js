@@ -1,18 +1,11 @@
 /**
  * Created by home on 11/10/15.
  */
-var arrayWork = [2, 0];
-var arrayRest = [5, 0];
-var repeat = 5;
+var arrayWork = [0, 10];
+var arrayRest = [0, 5];
+var repeat = 2;
 
 $(document).ready(function() {
-    //if(arrayWork[0] < 10) {
-    //    $('#min').text("0" + arrayWork[0]);
-    //    $('#sec').text("0" + arrayWork[1]);
-    //} else {
-    //    $('#min').text(arrayWork[0]);
-    //    $('#sec').text("0" + arrayWork[1]);
-    //}
 
     set(arrayWork);
 
@@ -27,16 +20,15 @@ $(document).ready(function() {
     }
 
     function timer() {
-        //var min = arr[0];
-        //var sec = arr[1];
         var min = $('#min').html();
         var sec = $('#sec').html();
 
         if(sec == 0) {
             if(min == 0) {
                 //$('#msg').text("Отдохни");
-                set(arrayRest);
-                timer();
+                repeat--;
+                if(repeat === 0)
+                    return false;
             } else {
                 min--;
                 if(min < 10) min = "0" + min;
@@ -51,7 +43,35 @@ $(document).ready(function() {
         setTimeout(timer, 1000);
     }
 
+    function sequence() {
+        //setInterval(function() {
+        //    set(arrayRest);
+        //    setInterval(function() {
+        //        set(arrayWork);
+        //    }, arrayRest[1] * 1000);
+        //}, arrayWork[1] * 1000);
+        var loop1 = setInterval(function() {
+            set(arrayRest);
+            if(repeat === 0) {
+                clearInterval(loop1);
+            }
+        }, arrayWork[1] * 1000);
+        var loop2 = setInterval(function() {
+            set(arrayWork);
+            if(repeat === 0) {
+                clearInterval(loop2);
+            }
+        }, (arrayWork[1] + arrayRest[1]) * 1000);
+    }
+
     $('.touch').on('click', function() {
-        timer(arrayWork);
+        timer();
+        //setInterval(function() {
+        //    set(arrayRest);
+        //}, arrayWork[1] * 1000);
+        //setInterval(function() {
+        //    set(arrayWork);
+        //}, (arrayWork[1] + arrayRest[1]) * 1000);
+        sequence();
     });
 });
