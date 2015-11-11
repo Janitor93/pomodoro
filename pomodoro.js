@@ -3,7 +3,6 @@
  */
 var arrayWork = [0, 10];
 var arrayRest = [0, 5];
-var repeat = 2;
 
 $(document).ready(function() {
 
@@ -19,59 +18,55 @@ $(document).ready(function() {
         }
     }
 
-    function timer() {
-        var min = $('#min').html();
-        var sec = $('#sec').html();
+    function timerStart() {
+            var min = $('#min').html();
+            var sec = $('#sec').html();
 
-        if(sec == 0) {
-            if(min == 0) {
-                //$('#msg').text("Отдохни");
-                repeat--;
-                if(repeat === 0)
+            if (sec == 0) {
+                if (min == 0) {
+                    set(arrayRest);
+                    setTimeout(timerRest, 1000);
                     return false;
+                } else {
+                    min--;
+                    if (min < 10) min = "0" + min;
+                    sec = 59;
+                }
             } else {
-                min--;
-                if(min < 10) min = "0" + min;
-                sec = 59;
+                sec--;
+                if (sec < 10) sec = "0" + sec;
             }
-        } else {
-            sec--;
-            if(sec < 10) sec = "0" + sec;
-        }
-        $('#min').text(min);
-        $('#sec').text(sec);
-        setTimeout(timer, 1000);
+
+            $('#min').text(min);
+            $('#sec').text(sec);
+            setTimeout(timerStart, 1000);
     }
 
-    function sequence() {
-        //setInterval(function() {
-        //    set(arrayRest);
-        //    setInterval(function() {
-        //        set(arrayWork);
-        //    }, arrayRest[1] * 1000);
-        //}, arrayWork[1] * 1000);
-        var loop1 = setInterval(function() {
-            set(arrayRest);
-            if(repeat === 0) {
-                clearInterval(loop1);
+    function timerRest() {
+        var min1 = $('#min').html();
+        var sec1= $('#sec').html();
+
+        if (sec1 == 0) {
+            if (min1 == 0) {
+                set(arrayWork);
+                setTimeout(timerStart, 1000);
+                return false;
+            } else {
+                min1--;
+                if (min1 < 10) min1 = "0" + min1;
+                sec1 = 59;
             }
-        }, arrayWork[1] * 1000);
-        var loop2 = setInterval(function() {
-            set(arrayWork);
-            if(repeat === 0) {
-                clearInterval(loop2);
-            }
-        }, (arrayWork[1] + arrayRest[1]) * 1000);
+        } else {
+            sec1--;
+            if (sec1 < 10) sec1 = "0" + sec1;
+        }
+
+        $('#min').text(min1);
+        $('#sec').text(sec1);
+        setTimeout(timerRest, 1000);
     }
 
     $('.touch').on('click', function() {
-        timer();
-        //setInterval(function() {
-        //    set(arrayRest);
-        //}, arrayWork[1] * 1000);
-        //setInterval(function() {
-        //    set(arrayWork);
-        //}, (arrayWork[1] + arrayRest[1]) * 1000);
-        sequence();
+        timerStart();
     });
 });
