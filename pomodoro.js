@@ -70,14 +70,48 @@ $(document).ready(function() {
         startR = setTimeout(timerRest, 1000);
     }
 
+    var pomodoro = {
+
+        timeWork: 1500,
+        timeRest: 300,
+
+        work: function() {
+            var self = this;
+            this.interval = setInterval(function() {
+                self.timeWork -= 1;
+
+                $("#min").text(Math.floor(self.timeWork / 60 % 60));
+                $("#sec").text(Math.floor(self.timeWork % 60));
+            }, 1000);
+        },
+
+        //rest: function() {
+        //    var self = this;
+        //    this.interval = setInterval(function() {
+        //        self.timeRest -= 1;
+        //
+        //        $("#min").text(Math.floor(self.timeRest / 60 % 60));
+        //        $("#sec").text(Math.floor(self.timeRest % 60));
+        //    }, 1000);
+        //},
+
+        pause: function() {
+            clearInterval(this.interval);
+            delete this.interval;
+        },
+
+        resume: function() {
+            if(!this.interval) this.work();
+        }
+    };
+
     var trigger = false;
     $('.touch').on('click', function() {
         if(trigger == false) {
-            timerStart();
+            pomodoro.work();
             trigger = true;
         } else {
-            clearTimeout(startS);
-            clearTimeout(startR);
+            pomodoro.pause();
             trigger = false;
         }
     });
