@@ -1,0 +1,15 @@
+h1 {
+    font-family: Lobster, sans-serif;
+    color: white;
+    margin-top: 5%;
+}
+
+body {
+    background: #404040;
+    text-align: center;
+}
+
+p.touch {
+    font-size: 50px;
+    margin-top: 20%;
+}
