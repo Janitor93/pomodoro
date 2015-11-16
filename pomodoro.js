@@ -18,6 +18,7 @@ $(document).ready(function() {
         }
     }
 
+    var startS = 0;
     function timerStart() {
         var min = $('#min').html();
         var sec = $('#sec').html();
@@ -25,7 +26,8 @@ $(document).ready(function() {
         if (sec == 0) {
             if (min == 0) {
                 set(arrayRest);
-                setTimeout(timerRest, 1000);
+                //setTimeout(timerRest, 1000);
+                timerRest();
                 return false;
             } else {
                 min--;
@@ -39,9 +41,10 @@ $(document).ready(function() {
 
         $('#min').text(min);
         $('#sec').text(sec);
-        setTimeout(timerStart, 1000);
+        startS = setTimeout(timerStart, 1000);
     }
 
+    var startR = 0;
     function timerRest() {
         var min = $('#min').html();
         var sec= $('#sec').html();
@@ -49,7 +52,8 @@ $(document).ready(function() {
         if (sec == 0) {
             if (min == 0) {
                 set(arrayWork);
-                setTimeout(timerStart, 1000);
+                //setTimeout(timerStart, 1000);
+                timerStart();
                 return false;
             } else {
                 min--;
@@ -63,10 +67,18 @@ $(document).ready(function() {
 
         $('#min').text(min);
         $('#sec').text(sec);
-        setTimeout(timerRest, 1000);
+        startR = setTimeout(timerRest, 1000);
     }
 
+    var trigger = false;
     $('.touch').on('click', function() {
-        timerStart();
+        if(trigger == false) {
+            timerStart();
+            trigger = true;
+        } else {
+            clearTimeout(startS);
+            clearTimeout(startR);
+            trigger = false;
+        }
     });
 });
