@@ -20,8 +20,8 @@ $(document).ready(function() {
 
     var pomodoro = {
 
-        timeWork: 1500,
-        timeRest: 300,
+        timeWork: 10,
+        timeRest: 500,
 
         work: function() {
             var self = this;
@@ -31,17 +31,27 @@ $(document).ready(function() {
                 $("#min").text(Math.floor(self.timeWork / 60 % 60));
                 $("#sec").text(Math.floor(self.timeWork % 60));
             }, 1000);
+            if(self.timeWork === 0) {
+                clearInterval(this.interval);
+                pomodoro.rest();
+                return 0;
+            }
         },
 
-        //rest: function() {
-        //    var self = this;
-        //    this.interval = setInterval(function() {
-        //        self.timeRest -= 1;
-        //
-        //        $("#min").text(Math.floor(self.timeRest / 60 % 60));
-        //        $("#sec").text(Math.floor(self.timeRest % 60));
-        //    }, 1000);
-        //},
+        rest: function() {
+            var self2 = this;
+            this.interval2 = setInterval(function() {
+                self2.timeRest -= 1;
+
+                $("#min").text(Math.floor(self2.timeRest / 60 % 60));
+                $("#sec").text(Math.floor(self2.timeRest % 60));
+            }, 1000);
+            if(self2.timeRest == 0) {
+                clearInterval(this.interval2);
+                pomodoro.work();
+                return 0;
+            }
+        },
 
         pause: function() {
             clearInterval(this.interval);
@@ -53,14 +63,17 @@ $(document).ready(function() {
         }
     };
 
-    var trigger = false;
+    var trigger = 0;
     $('.touch').on('click', function() {
-        if(trigger == false) {
+        if(trigger == 0) {
             pomodoro.work();
-            trigger = true;
-        } else {
+            trigger = 1;
+        } else if(trigger == 1){
             pomodoro.pause();
-            trigger = false;
+            trigger = 0;
+        } else if(trigger == 2) {
+            pomodoro.resume();
+            trigger = 0;
         }
     });
 });
