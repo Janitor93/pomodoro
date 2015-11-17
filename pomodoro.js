@@ -26,7 +26,6 @@ $(document).ready(function() {
         if (sec == 0) {
             if (min == 0) {
                 set(arrayRest);
-                //setTimeout(timerRest, 1000);
                 timerRest();
                 return false;
             } else {
@@ -52,7 +51,6 @@ $(document).ready(function() {
         if (sec == 0) {
             if (min == 0) {
                 set(arrayWork);
-                //setTimeout(timerStart, 1000);
                 timerStart();
                 return false;
             } else {
