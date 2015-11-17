@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Pomodoro Clock</title>
@@ -10,14 +10,39 @@
     <link rel="stylesheet" href="stylesheet.css"/>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
             <h1>Pomodoro Clock</h1>
-            <p class="touch"><span id="min"></span> : <span id="sec"></span></p>
-            <p id="msg"></p>
+
+            <div class="row set-time">
+                <div class="col-xs-6 btn-rest">
+                    <button type="button" class="btn btn-default btn-sm" id="minus-rest">-</button>
+                    <span id="rest-time">5</span>
+                    <button type="button" class="btn btn-default btn-sm" id="plus-rest">+</button>
+                </div>
+                <div class="col-xs-6 btn-work">
+                    <button type="button" class="btn btn-default btn-sm" id="minus-work">-</button>
+                    <span id="work-time">25</span>
+                    <button type="button" class="btn btn-default btn-sm" id="plus-work">+</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 run">
+                    <p id="status">Work!</p>
+                    <p class="touch"><span id="min">25</span> : <span id="sec">00</span></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 btns">
+                    <button id="start" class="btn btn-default">Start</button>
+                    <button id="pause" class="btn btn-default">Pause</button>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
 </body>
 </html>

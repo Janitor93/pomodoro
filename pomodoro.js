@@ -1,82 +1,64 @@
-/**
- * Created by home on 11/10/15.
- */
-var arrayWork = [2, 0];
-var arrayRest = [1, 0];
-
 $(document).ready(function() {
 
-    set(arrayWork);
-
-    function set(arr) {
-        if(arr[0] < 10) {
-            $('#min').text("0" + arr[0]);
-            $('#sec').text("0" + arr[1]);
-        } else {
-            $('#min').text(arr[0]);
-            $('#sec').text("0" + arr[1]);
-        }
-    }
-
-    var startS = 0;
-    function timerStart() {
-        var min = $('#min').html();
-        var sec = $('#sec').html();
-
-        if (sec == 0) {
-            if (min == 0) {
-                set(arrayRest);
-                timerRest();
-                return false;
-            } else {
-                min--;
-                if (min < 10) min = "0" + min;
-                sec = 59;
-            }
-        } else {
-            sec--;
-            if (sec < 10) sec = "0" + sec;
-        }
-
-        $('#min').text(min);
-        $('#sec').text(sec);
-        startS = setTimeout(timerStart, 1000);
-    }
-
-    var startR = 0;
-    function timerRest() {
-        var min = $('#min').html();
-        var sec= $('#sec').html();
-
-        if (sec == 0) {
-            if (min == 0) {
-                set(arrayWork);
-                timerStart();
-                return false;
-            } else {
-                min--;
-                if (min < 10) min = "0" + min;
-                sec = 59;
-            }
-        } else {
-            sec--;
-            if (sec < 10) sec = "0" + sec;
-        }
-
-        $('#min').text(min);
-        $('#sec').text(sec);
-        startR = setTimeout(timerRest, 1000);
-    }
-
-    var trigger = false;
-    $('.touch').on('click', function() {
-        if(trigger == false) {
-            timerStart();
-            trigger = true;
-        } else {
-            clearTimeout(startS);
-            clearTimeout(startR);
-            trigger = false;
-        }
+    //Set value clock for Work
+    $("#plus-work").click(function() {
+        $("#status").text("Work!");
+        $("#work-time").text(+$("#work-time").text() + 1);
+        var min = $("#work-time").html();
+        $("#min").text(min);
     });
+
+    $("#minus-work").click(function() {
+        $("#status").text("Work!");
+        if(+$("#work-time").text() > 1)
+            $("#work-time").text(+$("#work-time").text() - 1);
+        var min = $("#work-time").html();
+        $("#min").text(min);
+    });
+
+    //Set value clock for Break
+    $("#plus-rest").click(function() {
+        $("#rest-time").text(+$("#rest-time").text() + 1);
+    });
+
+    $("#minus-rest").click(function() {
+        if(+$("#rest-time").text() > 1)
+            $("#rest-time").text(+$("#rest-time").text() - 1);
+    });
+
+    //Start pomodoro function
+    function run() {
+        var min = $("#min").html();
+        var sec = $("#sec").html();
+        if(sec == 0) {
+            if(min > 0) {
+                min--;
+                sec = 59;
+            } else {
+                var status = $("#status").html();
+                if(status == "Work!") {
+                    $("#status").text("Break!");
+                    var breakMin = +$("#rest-time").html();
+                    $("#min").text(breakMin);
+                    return 0;
+                } else {
+                    $("#status").text("Work!");
+                    var workMin = +$("#work-time").html();
+                    $("#min").text(workMin);
+                    return 0;
+                }
+            }
+        } else {
+            sec--;
+        }
+        $("#min").text(min);
+        $("#sec").text(sec);
+    }
+
+    $('#start').click(function() {
+        interval = setInterval(run, 1000);
+    });
+    $('#pause').click(function() {
+        clearInterval(interval);
+    })
 });
