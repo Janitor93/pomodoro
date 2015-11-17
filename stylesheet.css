@@ -9,7 +9,38 @@ body {
     text-align: center;
 }
 
-p.touch {
+.run {
     font-size: 50px;
-    margin-top: 20%;
+    margin-top: 50px;
+}
+
+.set-time {
+    margin-top: 5%;
+}
+
+.set-time span {
+    display: inline-block;
+    width: 30px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.btns {
+    margin-top: 25px;
+}
+.btns button {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 200px;
+    text-align: center;
+}
+
+.btn-rest {
+    text-align: right;
+    padding-right: 110px;
+}
+
+.btn-work {
+    text-align: left;
+    padding-left: 110px;
 }
