@@ -18,58 +18,6 @@ $(document).ready(function() {
         }
     }
 
-    var startS = 0;
-    function timerStart() {
-        var min = $('#min').html();
-        var sec = $('#sec').html();
-
-        if (sec == 0) {
-            if (min == 0) {
-                set(arrayRest);
-                //setTimeout(timerRest, 1000);
-                timerRest();
-                return false;
-            } else {
-                min--;
-                if (min < 10) min = "0" + min;
-                sec = 59;
-            }
-        } else {
-            sec--;
-            if (sec < 10) sec = "0" + sec;
-        }
-
-        $('#min').text(min);
-        $('#sec').text(sec);
-        startS = setTimeout(timerStart, 1000);
-    }
-
-    var startR = 0;
-    function timerRest() {
-        var min = $('#min').html();
-        var sec= $('#sec').html();
-
-        if (sec == 0) {
-            if (min == 0) {
-                set(arrayWork);
-                //setTimeout(timerStart, 1000);
-                timerStart();
-                return false;
-            } else {
-                min--;
-                if (min < 10) min = "0" + min;
-                sec = 59;
-            }
-        } else {
-            sec--;
-            if (sec < 10) sec = "0" + sec;
-        }
-
-        $('#min').text(min);
-        $('#sec').text(sec);
-        startR = setTimeout(timerRest, 1000);
-    }
-
     var pomodoro = {
 
         timeWork: 1500,
