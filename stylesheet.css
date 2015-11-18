@@ -23,6 +23,7 @@ body {
     width: 30px;
     font-size: 15px;
     text-align: center;
+    color: white;
 }
 
 .btns {
@@ -43,4 +44,8 @@ body {
 .btn-work {
     text-align: left;
     padding-left: 110px;
+}
+
+.touch {
+    color: white;
 }

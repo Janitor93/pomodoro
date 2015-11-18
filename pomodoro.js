@@ -2,27 +2,31 @@ $(document).ready(function() {
 
     //Set value clock for Work
     $("#plus-work").click(function() {
-        $("#status").text("Work!");
-        $("#work-time").text(+$("#work-time").text() + 1);
-        var min = $("#work-time").html();
-        $("#min").text(min);
+        if(running == false) {
+            $("#status").text("Work!");
+            $("#work-time").text(+$("#work-time").text() + 1);
+            var min = $("#work-time").html();
+            $("#min").text(min);
+        }
     });
 
     $("#minus-work").click(function() {
-        $("#status").text("Work!");
-        if(+$("#work-time").text() > 1)
+        if(+$("#work-time").text() > 1 && running == false) {
             $("#work-time").text(+$("#work-time").text() - 1);
-        var min = $("#work-time").html();
-        $("#min").text(min);
+            $("#status").text("Work!");
+            var min = $("#work-time").html();
+            $("#min").text(min);
+        }
     });
 
     //Set value clock for Break
     $("#plus-rest").click(function() {
-        $("#rest-time").text(+$("#rest-time").text() + 1);
+        if(running == false)
+            $("#rest-time").text(+$("#rest-time").text() + 1);
     });
 
     $("#minus-rest").click(function() {
-        if(+$("#rest-time").text() > 1)
+        if(+$("#rest-time").text() > 1 && running == false)
             $("#rest-time").text(+$("#rest-time").text() - 1);
     });
 
@@ -55,10 +59,14 @@ $(document).ready(function() {
         $("#sec").text(sec);
     }
 
+    var running = false;
+    var interval;
     $('#start').click(function() {
         interval = setInterval(run, 1000);
+        running = true;
     });
     $('#pause').click(function() {
         clearInterval(interval);
+        running = false;
     })
 });
