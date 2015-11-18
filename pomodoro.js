@@ -62,11 +62,13 @@ $(document).ready(function() {
     var running = false;
     var interval;
     $('#start').click(function() {
-        interval = setInterval(run, 1000);
-        running = true;
+        if(running == false) {
+            interval = setInterval(run, 1000);
+            running = true;
+        }
     });
     $('#pause').click(function() {
         clearInterval(interval);
         running = false;
-    })
+    });
 });
