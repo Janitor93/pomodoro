@@ -30,6 +30,12 @@ $(document).ready(function() {
             $("#rest-time").text(+$("#rest-time").text() - 1);
     });
 
+    //audio
+    var audio = new Audio('http://www.soundjay.com/misc/sounds/bell-ringing-04.mp3');
+    function beep() {
+        audio.play();
+    }
+
     //Start pomodoro function
     function run() {
         var min = $("#min").html();
@@ -41,11 +47,13 @@ $(document).ready(function() {
             } else {
                 var status = $("#status").html();
                 if(status == "Work!") {
+                    beep();
                     $("#status").text("Break!");
                     var breakMin = +$("#rest-time").html();
                     $("#min").text(breakMin);
                     return 0;
                 } else {
+                    beep();
                     $("#status").text("Work!");
                     var workMin = +$("#work-time").html();
                     $("#min").text(workMin);
