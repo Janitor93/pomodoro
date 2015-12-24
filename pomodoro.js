@@ -1,12 +1,23 @@
 $(document).ready(function() {
 
+    //rounding and concatenation
+    function rounding(n) {
+        if(n >= 10) {
+            return n;
+        } else {
+            var dec = Math.floor(n / 10);
+            var un = n % 10;
+            return dec + "" + un;
+        }
+    }
+
     //Set value clock for Work
     $("#plus-work").click(function() {
         if(running == false) {
             $("#status").text("Work!");
             $("#work-time").text(+$("#work-time").text() + 1);
             var min = $("#work-time").html();
-            $("#min").text(min);
+            $("#min").text(rounding(min));
         }
     });
 
@@ -15,7 +26,7 @@ $(document).ready(function() {
             $("#work-time").text(+$("#work-time").text() - 1);
             $("#status").text("Work!");
             var min = $("#work-time").html();
-            $("#min").text(min);
+            $("#min").text(rounding(min));
         }
     });
 
@@ -51,20 +62,32 @@ $(document).ready(function() {
                     $("#status").text("Break!");
                     var breakMin = +$("#rest-time").html();
                     $("#min").text(breakMin);
+                    $("#bar").removeClass("progress-bar-success");
+                    $("#bar").addClass("progress-bar-danger");
                     return 0;
                 } else {
                     beep();
                     $("#status").text("Work!");
                     var workMin = +$("#work-time").html();
                     $("#min").text(workMin);
+                    $("#bar").removeClass("progress-bar-danger");
+                    $("#bar").addClass("progress-bar-success");
                     return 0;
                 }
             }
         } else {
             sec--;
         }
-        $("#min").text(min);
-        $("#sec").text(sec);
+        $("#min").text(rounding(min));
+        $("#sec").text(rounding(sec));
+        $(".progress-bar").css("width", moveBar(min, sec) + "%");
+    }
+
+    //for progress bar
+    function moveBar(m, n) {
+        var t = $("#work-time").html();
+        var k = t * 60;
+        return Math.ceil((100 * (k - (m * 60 + n)))/k);
     }
 
     var running = false;

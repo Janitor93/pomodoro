@@ -50,3 +50,7 @@ body {
 .touch {
     color: white;
 }
+
+.progress-bar {
+    width: 0;
+}
