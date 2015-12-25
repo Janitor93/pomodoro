@@ -57,6 +57,7 @@ $(document).ready(function() {
                 sec = 59;
             } else {
                 var status = $("#status").html();
+                $(".progress-bar").css("width", "0%");
                 if(status == "Work!") {
                     beep();
                     $("#status").text("Break!");
@@ -85,9 +86,14 @@ $(document).ready(function() {
 
     //for progress bar
     function moveBar(m, n) {
-        var t = $("#work-time").html();
-        var k = t * 60;
-        return Math.ceil((100 * (k - (m * 60 + n)))/k);
+        var statusWork = $("#status").html();
+        var timeStatus;
+        if(statusWork == "Work!")
+            timeStatus = +$("#work-time").html();
+        else
+            timeStatus = +$("#rest-time").html();
+        var secondTime = timeStatus * 60;
+        return Math.ceil((100 * (secondTime - (m * 60 + n)))/secondTime);
     }
 
     var running = false;
